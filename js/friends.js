@@ -6,6 +6,7 @@ if (getObjectLocalStorage('users') === null){
 
 
 // Crud de pessoas
+
 function create(){
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
@@ -21,6 +22,18 @@ function create(){
 
         alert('usuário criado com sucesso')
     }
+}
+
+
+
+function list(){
+    let users = getObjectLocalStorage('users');
+    let result = '';
+    const root = document.getElementById('list');
+    users.forEach(user => {
+        result += `<li>${user.name} - ${user.email} </li>`;
+    });
+    root.innerHTML = result;
 }
 
 
