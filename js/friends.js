@@ -48,8 +48,19 @@ function remove(email){
 }
 
 function detail(email){
-    const user = getUser(email);
-    setObjectLocalStorage('user', user);
+    setObjectLocalStorage('user', email);
+}
+
+function loadData(){
+    const email = getObjectLocalStorage('user');
+    let users = getObjectLocalStorage('users');
+    users.forEach(user => {
+        console.log(email);
+        if (user.email===email){
+            document.getElementById('name').value = user.name;
+            document.getElementById('email').value = user.email;
+        }
+    });
 }
 
 // Manipulação de local storage
@@ -73,14 +84,4 @@ function isRegistred(email){
         }
     });
     return false;
-}
-
-function getUser(email){
-    let users = getObjectLocalStorage('users');
-    users.forEach(user => {
-        if (user.email===email){
-            return user;
-        }
-    });
-    return null;
 }
