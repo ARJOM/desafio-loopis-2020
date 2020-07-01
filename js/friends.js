@@ -7,10 +7,10 @@ if (getObjectLocalStorage('users') === null){
 
 // Crud de pessoas
 function create(){
-    let name = document.getElementById("name");
-    let email = document.getElementById("email");
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
 
-    if (name=="" || email==""){
+    if (name==="" || email===""){
         alert('informe valores válidos')
     } else {
         const user = {name, email};
