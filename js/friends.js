@@ -30,11 +30,16 @@ function list(){
     let result = '';
     const root = document.getElementById('list');
     users.forEach(user => {
-        result += `<li>${user.name} - ${user.email} </li>`;
+        result += `<li>${user.name} - ${user.email} <a href="/html/update.html" onclick=\"+detail('${user.email}')\">Editar</a></li>`;
     });
     root.innerHTML = result;
 }
 
+
+function detail(email){
+    const user = getUser(email);
+    setObjectLocalStorage('user', user);
+}
 
 // Manipulação de local storage
 
@@ -45,4 +50,38 @@ function setObjectLocalStorage(key,value){
 function getObjectLocalStorage(key){
 	var value = localStorage.getItem(key);
     return value && JSON.parse(value);
+}
+
+// Funções auxiliares
+
+function isRegistred(email){
+    const users = getObjectLocalStorage('users');
+    users.forEach(user => {
+        if (user.email===email){
+            return true;
+        }
+    });
+    return false;
+}
+
+function getUser(email){
+    let users = getObjectLocalStorage('users');
+    users.forEach(user => {
+        if (user.email===email){
+            return user;
+        }
+    });
+    return null;
+}
+
+function remUser(email){
+    let users = getObjectLocalStorage('users');
+    users.forEach(user => {
+        if (user.email===email){
+            users.splice(users.indexOf(user), 1);
+            setObjectLocalStorage('users', users);
+            return true;
+        }
+    });
+    return null;
 }
