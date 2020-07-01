@@ -25,7 +25,6 @@ function create(){
 }
 
 
-
 function list(){
     let users = getObjectLocalStorage('users');
     let result = '';
