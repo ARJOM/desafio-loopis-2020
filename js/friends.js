@@ -30,11 +30,22 @@ function list(){
     let result = '';
     const root = document.getElementById('list');
     users.forEach(user => {
-        result += `<li>${user.name} - ${user.email} <a href="/html/update.html" onclick=\"+detail('${user.email}')\">Editar</a></li>`;
+        result += `<li>${user.name} - ${user.email} <a href="/html/update.html" onclick=\"+detail('${user.email}')\">Editar</a> - <span onclick=\"+remove('${user.email}')\">Remover</span></li>`;
     });
     root.innerHTML = result;
 }
 
+
+function remove(email){
+    let users = getObjectLocalStorage('users');
+    users.forEach(user => {
+        if (user.email===email){
+            users.splice(users.indexOf(user), 1);
+            setObjectLocalStorage('users', users);
+            location.reload();
+        }
+    });
+}
 
 function detail(email){
     const user = getUser(email);
@@ -69,18 +80,6 @@ function getUser(email){
     users.forEach(user => {
         if (user.email===email){
             return user;
-        }
-    });
-    return null;
-}
-
-function remUser(email){
-    let users = getObjectLocalStorage('users');
-    users.forEach(user => {
-        if (user.email===email){
-            users.splice(users.indexOf(user), 1);
-            setObjectLocalStorage('users', users);
-            return true;
         }
     });
     return null;
