@@ -5,6 +5,6 @@ function sendMail(email, amigo){
     };
 
     emailjs.send("default_service", "amigo_secreto", templateParams)
-    .then(response => alert(response.txt))
-    .catch(err => alert(err));
+    .then(response => console.log(response))
+    .catch(err => console.log(err));
 }
