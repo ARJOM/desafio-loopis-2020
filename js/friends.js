@@ -11,16 +11,21 @@ function create(){
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
 
-    if (name==="" || email===""){
-        alert('informe valores válidos')
-    } else {
-        const user = {name, email};
-        
-        let users = getObjectLocalStorage('users');
-        users.push(user);
-        setObjectLocalStorage('users', users);
+    if (!isRegistred(email)){
 
-        alert('usuário criado com sucesso')
+        if (name==="" || email===""){
+            alert('informe valores válidos')
+        } else {
+            const user = {name, email};
+            
+            let users = getObjectLocalStorage('users');
+            users.push(user);
+            setObjectLocalStorage('users', users);
+
+            alert('usuário criado com sucesso')
+        }
+    } else {
+        alert('Email já registrado')
     }
 }
 
@@ -68,24 +73,28 @@ function update(){
     let newName = document.getElementById("name").value;
     let newEmail = document.getElementById("email").value;
 
-    if (newName==="" || newEmail===""){
-        alert('informe valores válidos')
+    if (newEmail===email || !isRegistred(email)){
+        if (newName==="" || newEmail===""){
+            alert('informe valores válidos')
+        } else {
+            const user = {name: newName, email: newEmail};
+            console.log(user)
+            let users = getObjectLocalStorage('users');
+            
+            users.forEach(u => {
+                if (u.email===email){
+                    users.splice(users.indexOf(u), 1);
+                    setObjectLocalStorage('users', users);
+                }
+            });
+
+            users.push(user);
+            setObjectLocalStorage('users', users);
+
+            alert('usuário atualizado com sucesso com sucesso')
+        }
     } else {
-        const user = {name: newName, email: newEmail};
-        console.log(user)
-        let users = getObjectLocalStorage('users');
-        
-        users.forEach(u => {
-            if (u.email===email){
-                users.splice(users.indexOf(u), 1);
-                setObjectLocalStorage('users', users);
-            }
-        });
-
-        users.push(user);
-        setObjectLocalStorage('users', users);
-
-        alert('usuário atualizado com sucesso com sucesso')
+        alert('Email já registrado')
     }
 }
 
