@@ -63,6 +63,32 @@ function loadData(){
     });
 }
 
+function update(){
+    const email = getObjectLocalStorage('user');
+    let newName = document.getElementById("name").value;
+    let newEmail = document.getElementById("email").value;
+
+    if (newName==="" || newEmail===""){
+        alert('informe valores válidos')
+    } else {
+        const user = {name: newName, email: newEmail};
+        console.log(user)
+        let users = getObjectLocalStorage('users');
+        
+        users.forEach(u => {
+            if (u.email===email){
+                users.splice(users.indexOf(u), 1);
+                setObjectLocalStorage('users', users);
+            }
+        });
+
+        users.push(user);
+        setObjectLocalStorage('users', users);
+
+        alert('usuário atualizado com sucesso com sucesso')
+    }
+}
+
 // Manipulação de local storage
 
 function setObjectLocalStorage(key,value){
