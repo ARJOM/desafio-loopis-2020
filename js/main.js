@@ -17,3 +17,13 @@ function secretFriend(){
     setObjectLocalStorage('users', users);
     alert("Sorteado");
 }
+
+
+function sendAll(){
+    let users = getObjectLocalStorage('users')
+    users.forEach(user => {
+        setTimeout(() => { 
+            sendMail(user.email, user.friend);
+        }, 1500);
+    })
+}
